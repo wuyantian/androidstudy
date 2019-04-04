@@ -9,6 +9,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,20 +18,37 @@ import android.view.View;
 import android.widget.GridLayout;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private FloatingActionButton fab;
-
+    private Fruit[]fruits={new Fruit("apple",R.drawable.apple_pic),new Fruit("banana",R.drawable.banana_pic)
+    ,new Fruit("cherry",R.drawable.cherry_pic),new Fruit("grape",R.drawable.grape_pic)
+            ,new Fruit("mango",R.drawable.mango_pic),
+            new Fruit("orange",R.drawable.orange_pic),
+            new Fruit("pear",R.drawable.pear_pic),
+            new Fruit("pineapple",R.drawable.pineapple_pic),
+            new Fruit("strawberry",R.drawable.strawberry_pic),
+            new Fruit("watermelon",R.drawable.watermelon_pic)
+    };
+    private List<Fruit>fruitList=new ArrayList<>();
+    private FruitAdapter adapter;
+    private RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initFruits();
         toolbar=findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         drawerLayout=findViewById(R.id.drawer_layout);
         navigationView=findViewById(R.id.nav_view);
+        recyclerView=findViewById(R.id.recycler_view);
         fab=findViewById(R.id.fab);
         ActionBar actionBar=getSupportActionBar();
         if (actionBar!=null){
@@ -57,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter=new FruitAdapter(fruitList);
+        recyclerView.setAdapter(adapter);
+
     }
 
     @Override
@@ -83,5 +107,13 @@ public class MainActivity extends AppCompatActivity {
             default:
         }
         return true;
+    }
+    private void initFruits(){
+        fruitList.clear();
+        for (int i=0;i<50;i++){
+            Random random=new Random();
+            int index=random.nextInt(fruits.length);
+            fruitList.add(fruits[index]);
+        }
     }
 }
