@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Community</string>
+    <string name="toolbar_name"></string>
+    <string name="tab_text_1">热门</string>
+    <string name="tab_text_2">动态</string>
+    <string name="tab_text_3">资讯</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+</resources>
